@@ -20,8 +20,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/threads', 'threadsController@index')->name('threads.index');
 Route::get('/threads/create', 'threadsController@create')->name('threads.create');
+Route::get('/threads/{channel?}', 'threadsController@index')->name('threads.index');
 Route::get('/threads/{channel}/{thread}', 'threadsController@show')->name('threads.show');
 Route::post('/threads', 'threadsController@store')->name('threads.store');
 Route::get('/threads/{thread}/edit', 'threadsController@edit')->name('threads.edit');
