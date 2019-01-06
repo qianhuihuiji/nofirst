@@ -20,8 +20,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/threads','ThreadsController@index');
-Route::post('/threads','ThreadsController@store');
-Route::get('/threads/{thread}','ThreadsController@show');
+Route::get('/threads', 'threadsController@index')->name('threads.index');
+Route::get('/threads/create', 'threadsController@create')->name('threads.create');
+Route::get('/threads/{thread}', 'threadsController@show')->name('threads.show');
+Route::post('/threads', 'threadsController@store')->name('threads.store');
+Route::get('/threads/{thread}/edit', 'threadsController@edit')->name('threads.edit');
+Route::patch('/threads/{thread}', 'threadsController@update')->name('threads.update');
+Route::delete('/threads/{thread}', 'threadsController@destroy')->name('threads.destroy');
 
 Route::post('/threads/{thread}/replies','RepliesController@store');
