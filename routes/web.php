@@ -29,3 +29,4 @@ Route::patch('/threads/{thread}', 'threadsController@update')->name('threads.upd
 Route::delete('/threads/{thread}', 'threadsController@destroy')->name('threads.destroy');
 
 Route::post('/threads/{channel}/{thread}/replies','RepliesController@store');
+Route::post('/replies/{reply}/favorites','FavoritesController@store');
