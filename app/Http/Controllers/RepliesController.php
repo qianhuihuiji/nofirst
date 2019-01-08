@@ -39,9 +39,9 @@ class RepliesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($channelId,Thread $thread)
+    public function store($channelId, Thread $thread)
     {
-        $this->validate(request(),[
+        $this->validate(request(), [
             'body' => 'required'
         ]);
 
@@ -50,7 +50,7 @@ class RepliesController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return back()->with('flash','Your reply has been left.');
+        return back()->with('flash', 'Your reply has been left.');
     }
 
     /**
@@ -95,6 +95,10 @@ class RepliesController extends Controller
      */
     public function destroy(Reply $reply)
     {
-        //
+        $this->authorize('update',$reply);
+
+        $reply->delete();
+
+        return back();
     }
 }
