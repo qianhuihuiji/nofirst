@@ -54,6 +54,14 @@ if (token) {
 
 window.Vue = require('vue');
 
+Vue.prototype.authorize = function (handler) {
+    // if admin
+
+    let user = window.App.user;
+
+    return user ? handler(window.App.user) : false;
+}
+
 window.events = new Vue();
 
 window.flash = function (message) {
