@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <replies :data="{{ $thread->replies }}" @removed="repliesCount--"></replies>
+                    <replies :data="{{ $thread->replies }}" @added="repliesCount++" @removed="repliesCount--"></replies>
 
                     {{--@foreach ($replies as $reply)--}}
                         {{--@include('threads.reply')--}}
@@ -37,7 +37,7 @@
 
                     {{--{{ $replies->links() }}--}}
 
-                    @if (auth()->check())
+                    {{-- @if (auth()->check())
                         <form method="post" action="{{ $thread->path() . '/replies' }}">
 
                             {{ csrf_field() }}
@@ -50,7 +50,7 @@
                         </form>
                     @else
                         <p class="text-center">请先<a href="{{ route('login') }}">登录</a>，然后再发表回复 </p>
-                    @endif
+                    @endif --}}
                 </div>
 
                 <div class="col-md-4">
