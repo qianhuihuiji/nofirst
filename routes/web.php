@@ -28,9 +28,11 @@ Route::get('/threads/{thread}/edit', 'threadsController@edit')->name('threads.ed
 Route::patch('/threads/{thread}', 'threadsController@update')->name('threads.update');
 Route::delete('/threads/{channel}/{thread}', 'threadsController@destroy')->name('threads.destroy');
 
+Route::get('/threads/{channel}/{thread}/replies','RepliesController@index');
 Route::post('/threads/{channel}/{thread}/replies','RepliesController@store');
 Route::patch('/replies/{reply}','RepliesController@update');
 Route::delete('/replies/{reply}','RepliesController@destroy');
+
 Route::post('/replies/{reply}/favorites','FavoritesController@store');
 Route::delete('/replies/{reply}/favorites','FavoritesController@destroy');
 
