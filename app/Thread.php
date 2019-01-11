@@ -96,4 +96,11 @@ class Thread extends Model
     {
         return $this->hasMany(ThreadSubscription::class);
     }
+
+    public function hasUpdatedFor($user)
+    {
+        $key = $user->visitedThreadCacheKey($this);
+
+        return $this->updated_at > cache($key);
+    }
 }
