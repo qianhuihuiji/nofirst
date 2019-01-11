@@ -10,6 +10,7 @@ class Thread extends Model
 
     protected $guarded = [];
     protected $with = ['creator','channel'];
+    protected $appends = ['isSubscribedTo'];
 
     public static function boot()
     {
@@ -18,6 +19,13 @@ class Thread extends Model
         static::deleting(function ($thread) {
             $thread->replies->each->delete();
         });
+    }
+
+    public function getIsSubscribedToAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id',auth()->id())
+            ->exists();
     }
 
     public function path()
