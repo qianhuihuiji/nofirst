@@ -25,16 +25,6 @@ class RepliesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,11 +32,7 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread,Spam $spam)
     {
-        $this->validate(request(), [
-            'body' => 'required'
-        ]);
-
-        $spam->detect(request('body'));
+        $this->validateReply();
 
         $reply = $thread->addReply([
             'body' => request('body'),
@@ -61,37 +47,17 @@ class RepliesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reply $reply)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reply $reply)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(Reply $reply)
+    public function update(Reply $reply,Spam $spam)
     {
         $this->authorize('update',$reply);
+
+        $this->validateReply();
 
         $reply->update(request(['body']));
     }
@@ -113,5 +79,12 @@ class RepliesController extends Controller
         }
 
         return back();
+    }
+
+    protected function validateReply()
+    {
+        $this->validate(request(),['body' => 'required']);
+
+        resolve(Spam::class)->detect(request('body'));
     }
 }

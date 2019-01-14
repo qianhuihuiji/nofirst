@@ -6,6 +6,7 @@ use App\Thread;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Filters\ThreadsFilters;
+use App\Inspections\Spam;
 
 class ThreadsController extends Controller
 {
@@ -46,13 +47,15 @@ class ThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Spam $spam)
     {
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
             'channel_id' => 'required|exists:channels,id'
         ]);
+
+        $spam->detect($request['body']);
 
         $thread = Thread::create([
             'user_id' => auth()->id(),
@@ -78,29 +81,6 @@ class ThreadsController extends Controller
         }
 
         return view('threads.show', compact('thread'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Thread $thread)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Thread $thread)
-    {
-        //
     }
 
     /**
