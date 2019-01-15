@@ -8,6 +8,8 @@ use App\Thread;
 use App\Inspections\Spam;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CreatePostRequest;
+use App\User;
+use App\Notifications\YouWereMentioned;
 
 class RepliesController extends Controller
 {
@@ -34,10 +36,24 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread, CreatePostRequest $request)
     {
-        return $reply = $thread->addReply([
+        $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id(),
-        ])->load('owner');
+        ]);
+
+        preg_match_all('/\@([^\s\.]+)/',$reply->body,$matches);
+
+        $names = $matches[1];
+
+        foreach ($names as $name) {
+            $user = User::whereName($name)->first();
+
+            if($user){
+                $user->notify(new YouWereMentioned($reply));
+            }
+        }
+
+        return $reply->load('owner');
     }
 
     /**
