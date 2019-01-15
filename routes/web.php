@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'threadsController@index');
 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/threads/create', 'threadsController@create')->name('threads.create');
 Route::get('/threads/{channel?}', 'threadsController@index')->name('threads.index');
