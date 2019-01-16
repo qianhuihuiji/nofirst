@@ -43,7 +43,7 @@ class Reply extends Model
 
     public function mentionedUsers()
     {
-        preg_match_all('/\@([^\s\.]+)/',$this->body,$matches);
+        preg_match_all('/@([\w\-]+)/',$this->body,$matches);
 
         return $matches[1];
     }
@@ -52,4 +52,9 @@ class Reply extends Model
     {
         return $this->thread->path() . "#reply-{$this->id}";
     }
+
+    public function setBodyAttribute($body)
+    {
+        $this->attributes['body'] =  preg_replace('/@([\w\-]+)/','<a href="/profiles/$1">$0</a>',$body);
+    }  
 }
