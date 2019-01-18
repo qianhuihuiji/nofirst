@@ -19,7 +19,7 @@ Auth::routes();
 Route::get('/threads/create', 'threadsController@create')->name('threads.create');
 Route::get('/threads/{channel?}', 'threadsController@index')->name('threads.index');
 Route::get('/threads/{channel}/{thread}', 'threadsController@show')->name('threads.show');
-Route::post('/threads', 'threadsController@store')->name('threads.store');
+Route::post('/threads', 'threadsController@store')->name('threads.store')->middleware('must-be-confirmed');
 Route::get('/threads/{thread}/edit', 'threadsController@edit')->name('threads.edit');
 Route::patch('/threads/{thread}', 'threadsController@update')->name('threads.update');
 Route::delete('/threads/{channel}/{thread}', 'threadsController@destroy')->name('threads.destroy');
