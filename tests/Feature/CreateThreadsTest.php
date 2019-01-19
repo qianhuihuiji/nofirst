@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Activity;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Thread;
 
 class CreateThreadsTest extends TestCase
 {
@@ -78,6 +79,25 @@ class CreateThreadsTest extends TestCase
 
         $this->publishThread(['channel_id' => 999])
             ->assertSessionHasErrors('channel_id');
+    }
+
+    /** @test */
+    public function a_thread_requires_a_unique_slug()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread',['title' => 'Foo Title','slug' => 'foo-title']);
+
+        $this->assertEquals($thread->fresh()->slug,'foo-title');
+
+        $this->post(route('threads'),$thread->toArray());
+        // 相同话题的 Slug 后缀会加 1，即 foo-title-2
+        $this->assertTrue(Thread::whereSlug('foo-title-2')->exists());
+
+        $this->post(route('threads'),$thread->toArray());
+
+        // 相同话题的 Slug 后缀会加 1，即 foo-title-3
+        $this->assertTrue(Thread::whereSlug('foo-title-3')->exists());
     }
 
     /** @test */
