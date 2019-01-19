@@ -2,15 +2,57 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Activity;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateThreadsTest extends TestCase
 {
     use DatabaseMigrations;
+
+    /** @test */
+    public function guests_may_not_create_threads()
+    {
+        $this->withExceptionHandling();
+
+        $this->get('/threads/create')
+            ->assertRedirect(route('login')); // 应用路由命名
+
+        $this->post(route('threads')) // 应用路由命名
+            ->assertRedirect(route('login')); // 应用路由命名
+    }
+
+    // 修改测试命名，更加辨识度
+
+    /** @test */
+    public function new_users_must_first_confirm_their_email_address_before_creating_threads()
+    {
+        // 调用 unconfirmed，生成未认证用户
+        $user = factory('App\User')->states('unconfirmed')->create();
+        
+        $this->signIn($user);
+
+        $thread = make('App\Thread');
+
+        $this->post(route('threads'), $thread->toArray())
+            ->assertRedirect('/threads')
+            ->assertSessionHas('flash', 'You must first confirm your email address.');
+    }
+
+    // 修改测试命名，更加辨识度
+
+    /** @test */
+    public function a_user_can_create_new_forum_threads()
+    {
+        $this->signIn();
+
+        $thread = make('App\Thread');
+        $response = $this->post(route('threads'), $thread->toArray());// 应用路由命名
+
+        $this->get($response->headers->get('Location'))
+            ->assertSee($thread->title)
+            ->assertSee($thread->body);
+    }
 
     /** @test */
     public function a_thread_requires_a_title()
@@ -29,70 +71,13 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function a_thread_requires_a_valid_channel()
     {
-        factory('App\Channel',2)->create();
+        factory('App\Channel', 2)->create();
 
         $this->publishThread(['channel_id' => null])
             ->assertSessionHasErrors('channel_id');
 
         $this->publishThread(['channel_id' => 999])
-        ->assertSessionHasErrors('channel_id');
-    }
-
-    /** @test */
-    public function guests_may_not_create_threads()
-    {
-        $this->withExceptionHandling();
-
-        $this->get('/threads/create')
-            ->assertRedirect('/login');
-
-        $this->post('/threads',[])
-            ->assertRedirect('/login');
-    }
-
-    /** @test */
-    public function authenticated_users_must_first_confirm_their_email_address_before_creating_threads()
-    {
-        $this->publishThread()
-            ->assertRedirect('/threads')
-            ->assertSessionHas('flash','You must first confirm your email address.');
-    }
-
-    /** @test */
-    public function an_authenticated_user_can_create_new_forum_threads()
-    {
-        $this->signIn();
-
-        $thread = make('App\Thread');
-        $response = $this->post('/threads',$thread->toArray());
-
-        $this->get($response->headers->get('Location'))
-            ->assertSee($thread->title)
-            ->assertSee($thread->body);  
-    }
-
-    /** @test */
-    public function a_user_can_filter_threads_accroding_to_a_channel()
-    {
-        $channel = create('App\Channel');
-        $threadInChannel = create('App\Thread',['channel_id' => $channel->id]);
-        $threadNotInChannel = create('App\Thread');
-
-        $this->get('/threads/' . $channel->slug)
-            ->assertSee($threadInChannel->title)
-            ->assertDontSee($threadNotInChannel->title);
-    }
-
-    /** @test */
-    public function guests_can_not_delete_threads()
-    {
-        $this->withExceptionHandling();
-
-        $thread = create('App\Thread');
-
-        $response = $this->delete($thread->path());
-
-        $response->assertRedirect('/login');
+            ->assertSessionHasErrors('channel_id');
     }
 
     /** @test */
@@ -102,7 +87,7 @@ class CreateThreadsTest extends TestCase
 
         $thread = create('App\Thread');
 
-        $this->delete($thread->path())->assertRedirect('/login');
+        $this->delete($thread->path())->assertRedirect(route('login')); // 应用路由命名
 
         $this->signIn();
         $this->delete($thread->path())->assertStatus(403);
@@ -113,25 +98,25 @@ class CreateThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread',['user_id' => auth()->id()]);
-        $reply = create('App\Reply',['thread_id' => $thread->id]);
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
-        $response = $this->json('DELETE',$thread->path());
+        $response = $this->json('DELETE', $thread->path());
 
         $response->assertStatus(204);
 
-        $this->assertDatabaseMissing('threads',['id' => $thread->id]);
-        $this->assertDatabaseMissing('replies',['id' => $reply->id]);
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
-        $this->assertEquals(0,Activity::count());
+        $this->assertEquals(0, Activity::count());
     }
 
-    protected function publishThread($overrides = [])
+    public function publishThread($overrides = [])
     {
         $this->withExceptionHandling()->signIn();
 
-        $thread = make('App\Thread',$overrides );
+        $thread = make('App\Thread', $overrides);
 
-        return $this->post('/threads',$thread->toArray());
+        return $this->post(route('threads'), $thread->toArray()); // 应用路由命名
     }
 }
