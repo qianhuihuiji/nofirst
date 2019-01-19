@@ -31,6 +31,8 @@ $factory->state(App\User::class,'unconfirmed',function() {
 });
 
 $factory->define(App\Thread::class, function ($faker) {
+    $title = $faker->sentence;
+
     return [
         'user_id' => function () {
             return factory('App\User')->create()->id;
@@ -40,7 +42,8 @@ $factory->define(App\Thread::class, function ($faker) {
         },
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
-        'visits' => 0
+        'visits' => 0,
+        'slug' => str_slug($title)
     ];
 });
 
