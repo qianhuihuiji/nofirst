@@ -68,6 +68,10 @@ class ThreadsController extends Controller
             'slug' => request('title')
         ]);
 
+        if (request()->wantsJson()) {
+            return response($thread,201);
+        }
+
         return redirect($thread->path())
             ->with('flash','Your thread has been published!');
     }
