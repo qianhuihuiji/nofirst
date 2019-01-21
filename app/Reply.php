@@ -11,7 +11,7 @@ class Reply extends Model
 
     protected $guarded = [];
     protected $with = ['owner','favorites'];
-    protected $appends = ['favoritesCount','isFavorited'];
+    protected $appends = ['favoritesCount','isFavorited','isBest'];
 
     protected static function boot()
     {
@@ -24,6 +24,11 @@ class Reply extends Model
         static::deleted(function ($reply){
             $reply->thread->decrement('replies_count');
         });
+    }
+
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();   
     }
 
     public function owner()
