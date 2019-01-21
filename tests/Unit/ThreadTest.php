@@ -62,7 +62,7 @@ class ThreadTest extends TestCase
                 'user_id' => 999
             ]);
 
-        Notification::assertSentTo(auth()->user(),ThreadWasUpdated::class);     
+        Notification::assertSentTo(auth()->user(), ThreadWasUpdated::class);
     }
 
     /** @test */
@@ -82,8 +82,8 @@ class ThreadTest extends TestCase
 
         $this->assertEquals(
             1,
-            $thread->subscriptions()->where('user_id',$userId)->count()
-        );        
+            $thread->subscriptions()->where('user_id', $userId)->count()
+        );
     }
 
     /** @test */
@@ -98,7 +98,7 @@ class ThreadTest extends TestCase
         $this->assertCount(
             0,
             $thread->subscriptions
-        ); 
+        );
     }
 
     /** @test */
@@ -122,12 +122,22 @@ class ThreadTest extends TestCase
 
         $thread = create('App\Thread');
 
-        tap(auth()->user(),function ($user) use ($thread){
+        tap(auth()->user(), function ($user) use ($thread) {
             $this->assertTrue($thread->hasUpdatedFor($user));
 
             $user->read($thread);
 
             $this->assertFalse($thread->hasUpdatedFor($user));
         });
+    }
+
+    /** @test */
+    public function a_thread_can_be_locked()
+    {
+        $this->assertFalse($this->thread->locked);
+
+        $this->thread->lock();
+
+        $this->assertTrue($this->thread->locked);
     }
 }
