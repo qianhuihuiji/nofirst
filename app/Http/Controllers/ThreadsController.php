@@ -99,13 +99,15 @@ class ThreadsController extends Controller
 
     public function update($channel,Thread $thread)
     {
-        if(request()->has('locked')) {
-            if(! auth()->user()->isAdmin()) {
-                return response('',403);
-            }
+        // 应用授权策略
+        $this->authorize('update',$thread);
+        // 验证规则
+        $thread->update(request()->validate([
+            'title' => 'required|spamfree',
+            'body' => 'required|spamfree'
+        ]));
 
-            $thread->lock();
-        }
+        return $thread;
     }
 
     /**
