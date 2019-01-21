@@ -61051,15 +61051,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['dataRepliesCount'],
+    props: ['thread'],
 
     components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies___default.a, SubscribeButton: __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton___default.a },
 
     data: function data() {
         return {
-            repliesCount: this.dataRepliesCount,
-            locked: this.dataLocked
+            repliesCount: this.thread.replies_count,
+            locked: this.thread.locked
         };
+    },
+
+
+    methods: {
+        toggleLock: function toggleLock() {
+            axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+
+            this.locked = !this.locked;
+        }
     }
 });
 

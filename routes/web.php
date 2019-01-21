@@ -23,7 +23,8 @@ Route::post('/threads', 'threadsController@store')->name('threads.store')->middl
 Route::get('/threads/{thread}/edit', 'threadsController@edit')->name('threads.edit');
 Route::delete('/threads/{channel}/{thread}', 'threadsController@destroy')->name('threads.destroy');
 
-Route::post('locked-threads/{thread}','LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
+Route::post('locked-threads/{thread}','LockedThreadsController@store')->name('locked-threads.store');
+Route::delete('locked-threads/{thread}','LockedThreadsController@destroy')->name('locked-threads.destroy');
 
 Route::get('/threads/{channel}/{thread}/replies','RepliesController@index');
 Route::post('/threads/{channel}/{thread}/replies','RepliesController@store');
