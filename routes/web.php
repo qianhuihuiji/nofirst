@@ -17,6 +17,7 @@ Route::get('/', 'threadsController@index');
 Auth::routes();
 
 Route::get('/threads/create', 'threadsController@create')->name('threads.create');
+Route::get('threads/search','SearchController@show');
 Route::get('/threads/{channel?}', 'threadsController@index')->name('threads');
 Route::get('/threads/{channel}/{thread}', 'threadsController@show')->name('threads.show');
 Route::patch('threads/{channel}/{thread}','threadsController@update');
