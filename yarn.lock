@@ -43,6 +43,10 @@ adjust-sourcemap-loader@^1.1.0:
     object-path "^0.9.2"
     regex-parser "^2.2.9"
 
+agentkeepalive@^2.2.0:
+  version "2.2.0"
+  resolved "http://r.cnpmjs.org/agentkeepalive/download/agentkeepalive-2.2.0.tgz#c5d1bd4b129008f1163f236f86e5faea2026e2ef"
+
 ajv-keywords@^3.1.0:
   version "3.2.0"
   resolved "http://r.cnpmjs.org/ajv-keywords/download/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
@@ -64,6 +68,35 @@ ajv@^6.1.0, ajv@^6.5.5:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
+
+algoliasearch-helper@^2.26.0:
+  version "2.26.1"
+  resolved "http://r.cnpmjs.org/algoliasearch-helper/download/algoliasearch-helper-2.26.1.tgz#75bd34f095e852d1bda483b8ebfb83c3c6e2852c"
+  dependencies:
+    events "^1.1.1"
+    lodash "^4.17.5"
+    qs "^6.5.1"
+    util "^0.10.3"
+
+algoliasearch@^3.27.0:
+  version "3.32.0"
+  resolved "http://r.cnpmjs.org/algoliasearch/download/algoliasearch-3.32.0.tgz#5818168c26ff921bd0346a919071bac928b747ce"
+  dependencies:
+    agentkeepalive "^2.2.0"
+    debug "^2.6.8"
+    envify "^4.0.0"
+    es6-promise "^4.1.0"
+    events "^1.1.0"
+    foreach "^2.0.5"
+    global "^4.3.2"
+    inherits "^2.0.1"
+    isarray "^2.0.1"
+    load-script "^1.0.0"
+    object-keys "^1.0.11"
+    querystring-es3 "^0.2.1"
+    reduce "^1.0.1"
+    semver "^5.1.0"
+    tunnel-agent "^0.6.0"
 
 align-text@^0.1.1, align-text@^0.1.3:
   version "0.1.4"
@@ -2130,6 +2163,10 @@ dom-serializer@0:
     domelementtype "~1.1.1"
     entities "~1.1.1"
 
+dom-walk@^0.1.0:
+  version "0.1.1"
+  resolved "http://r.cnpmjs.org/dom-walk/download/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
+
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "http://r.cnpmjs.org/domain-browser/download/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -2279,6 +2316,13 @@ entities@~1.1.1:
   version "1.1.2"
   resolved "http://r.cnpmjs.org/entities/download/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
 
+envify@^4.0.0:
+  version "4.1.0"
+  resolved "http://r.cnpmjs.org/envify/download/envify-4.1.0.tgz#f39ad3db9d6801b4e6b478b61028d3f0b6819f7e"
+  dependencies:
+    esprima "^4.0.0"
+    through "~2.3.4"
+
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"
   resolved "http://r.cnpmjs.org/errno/download/errno-0.1.7.tgz#4684d71779ad39af177e3f007996f7c67c852618"
@@ -2343,6 +2387,10 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
 
+es6-promise@^4.1.0:
+  version "4.2.5"
+  resolved "http://r.cnpmjs.org/es6-promise/download/es6-promise-4.2.5.tgz#da6d0d5692efb461e082c14817fe2427d8f5d054"
+
 es6-set@~0.1.5:
   version "0.1.5"
   resolved "http://r.cnpmjs.org/es6-set/download/es6-set-0.1.5.tgz#d2b3ec5d4d800ced818db538d28974db0a73ccb1"
@@ -2376,7 +2424,7 @@ es6-weak-map@^2.0.1:
     es6-iterator "^2.0.1"
     es6-symbol "^3.1.1"
 
-escape-html@~1.0.3:
+escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
   resolved "http://r.cnpmjs.org/escape-html/download/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 
@@ -2434,7 +2482,7 @@ eventemitter3@^3.0.0:
   version "3.1.0"
   resolved "http://r.cnpmjs.org/eventemitter3/download/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
 
-events@^1.0.0:
+events@^1.0.0, events@^1.1.0, events@^1.1.1:
   version "1.1.1"
   resolved "http://r.cnpmjs.org/events/download/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
@@ -2837,6 +2885,10 @@ for-own@^1.0.0:
   dependencies:
     for-in "^1.0.1"
 
+foreach@^2.0.5:
+  version "2.0.5"
+  resolved "http://r.cnpmjs.org/foreach/download/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
+
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "http://r.cnpmjs.org/forever-agent/download/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
@@ -3050,6 +3102,13 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@~7.1.1:
     minimatch "^3.0.4"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
+
+global@^4.3.2:
+  version "4.3.2"
+  resolved "http://r.cnpmjs.org/global/download/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
+  dependencies:
+    min-document "^2.19.0"
+    process "~0.5.1"
 
 globals@^9.18.0:
   version "9.18.0"
@@ -3900,6 +3959,10 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
+isarray@^2.0.1:
+  version "2.0.4"
+  resolved "http://r.cnpmjs.org/isarray/download/isarray-2.0.4.tgz#38e7bcbb0f3ba1b7933c86ba1894ddfc3781bbb7"
+
 isexe@^2.0.0:
   version "2.0.0"
   resolved "http://r.cnpmjs.org/isexe/download/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
@@ -4131,6 +4194,10 @@ load-json-file@^2.0.0:
     parse-json "^2.2.0"
     pify "^2.0.0"
     strip-bom "^3.0.0"
+
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "http://r.cnpmjs.org/load-script/download/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
 
 loader-runner@^2.3.0:
   version "2.3.1"
@@ -4527,6 +4594,12 @@ mimic-response@^1.0.0:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/mimic-response/download/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
 
+min-document@^2.19.0:
+  version "2.19.0"
+  resolved "http://r.cnpmjs.org/min-document/download/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
+  dependencies:
+    dom-walk "^0.1.0"
+
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/minimalistic-assert/download/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
@@ -4908,7 +4981,7 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-keys@^1.0.12:
+object-keys@^1.0.11, object-keys@^1.0.12, object-keys@~1.0.0:
   version "1.0.12"
   resolved "http://r.cnpmjs.org/object-keys/download/object-keys-1.0.12.tgz#09c53855377575310cca62f55bb334abff7b3ed2"
 
@@ -5578,6 +5651,10 @@ process@^0.11.10:
   version "0.11.10"
   resolved "http://r.cnpmjs.org/process/download/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
+process@~0.5.1:
+  version "0.5.2"
+  resolved "http://r.cnpmjs.org/process/download/process-0.5.2.tgz#1638d8a8e34c2f440a91db95ab9aeb677fc185cf"
+
 promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/promise-inflight/download/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
@@ -5651,6 +5728,10 @@ qs@6.5.2, qs@~6.5.2:
   version "6.5.2"
   resolved "http://r.cnpmjs.org/qs/download/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
+qs@^6.5.1:
+  version "6.6.0"
+  resolved "http://r.cnpmjs.org/qs/download/qs-6.6.0.tgz#a99c0f69a8d26bf7ef012f871cdabb0aee4424c2"
+
 query-string@^4.1.0:
   version "4.3.4"
   resolved "http://r.cnpmjs.org/query-string/download/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -5658,7 +5739,7 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
-querystring-es3@^0.2.0:
+querystring-es3@^0.2.0, querystring-es3@^0.2.1:
   version "0.2.1"
   resolved "http://r.cnpmjs.org/querystring-es3/download/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
 
@@ -5817,6 +5898,12 @@ reduce-function-call@^1.0.1:
   resolved "http://r.cnpmjs.org/reduce-function-call/download/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+reduce@^1.0.1:
+  version "1.0.1"
+  resolved "http://r.cnpmjs.org/reduce/download/reduce-1.0.1.tgz#14fa2e5ff1fc560703a020cbb5fbaab691565804"
+  dependencies:
+    object-keys "~1.0.0"
 
 regenerate@^1.2.1:
   version "1.4.0"
@@ -6109,7 +6196,7 @@ semver-truncate@^1.0.0:
   dependencies:
     semver "^5.3.0"
 
-"semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.5.0:
+"semver@2 || 3 || 4 || 5", semver@^5.1.0, semver@^5.3.0, semver@^5.5.0:
   version "5.6.0"
   resolved "http://r.cnpmjs.org/semver/download/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
 
@@ -6734,7 +6821,7 @@ through2@^2.0.0, through2@~2.0.0:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
 
-through@^2.3.6, through@~2.3.6:
+through@^2.3.6, through@~2.3.4, through@~2.3.6:
   version "2.3.8"
   resolved "http://r.cnpmjs.org/through/download/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
@@ -6824,6 +6911,10 @@ trim-repeated@^1.0.0:
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/trim-right/download/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
+
+trix@^1.0.0:
+  version "1.0.0"
+  resolved "http://r.cnpmjs.org/trix/download/trix-1.0.0.tgz#e9cc98cf6030c908f8d54e317b5b072f927b0c6b"
 
 "true-case-path@^1.0.2":
   version "1.0.3"
@@ -7149,6 +7240,14 @@ vm-browserify@0.0.4:
 vue-hot-reload-api@^2.2.0:
   version "2.3.1"
   resolved "http://r.cnpmjs.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
+
+vue-instantsearch@^1.7.0:
+  version "1.7.0"
+  resolved "http://r.cnpmjs.org/vue-instantsearch/download/vue-instantsearch-1.7.0.tgz#93db5df104311dd6c803668adec26b0a02f86f3a"
+  dependencies:
+    algoliasearch "^3.27.0"
+    algoliasearch-helper "^2.26.0"
+    escape-html "^1.0.3"
 
 vue-loader@^13.0.5:
   version "13.7.3"

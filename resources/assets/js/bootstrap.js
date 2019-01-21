@@ -52,7 +52,13 @@ if (token) {
 //     key: 'your-pusher-key'
 // });
 
+window._ = require('lodash');
+
+import InstantSearch from 'vue-instantsearch';
+
 window.Vue = require('vue');
+
+Vue.use(InstantSearch);
 
 let authorizations = require('./authorizations');
 
