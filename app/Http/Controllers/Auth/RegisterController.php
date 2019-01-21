@@ -45,6 +45,6 @@ class RegisterController extends Controller
     {
         Mail::to($user)->send(new PleaseConfirmYourEmail($user));
 
-        return redirect($this->redirectPath());
+        return redirect($this->redirectTo);
     }
 }
