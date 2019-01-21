@@ -54,13 +54,19 @@ if (token) {
 
 window.Vue = require('vue');
 
-Vue.prototype.authorize = function (handler) {
-    // if admin
+let authorizations = require('./authorizations');
 
-    let user = window.App.user;
+Vue.prototype.authorize = function (...params) {
+    if(! window.App.signedIn) return false;
 
-    return user ? handler(window.App.user) : false;
+    if(typeof params[0] === 'string') {
+        return authorizations[params[0]](params[1]);
+    }
+
+    return params[0](window.App.user);
 }
+
+Vue.prototype.signedIn = window.App.signedIn;
 
 window.events = new Vue();
 
