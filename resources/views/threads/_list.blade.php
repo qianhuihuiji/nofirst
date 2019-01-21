@@ -20,9 +20,7 @@
             </div>
         </div>
 
-        <div class="panel-body">
-                {{ $thread->body }}
-        </div>
+        <div class="panel-body">{!! $thread->body !!} </div>
 
         <div class="panel-footer">
             {{ $thread->visits }} Visits

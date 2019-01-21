@@ -18,11 +18,11 @@
             <div v-if="editing">
                 <form @submit.prevent="update">
                     <div class="form-group">
-                        <textarea class="form-control" v-model="body" required></textarea>
+                        <wysiwyg v-model="body"></wysiwyg>
                     </div>
 
-                    <button class="btn btn-xs btn-primary">Update</button>
-                    <button class="btn btn-xs btn-link" type="button" @click="cancelReply">Cancel</button>
+                    <button class="btn btn-xs btn-primary" >Update</button>
+                    <button class="btn btn-xs btn-link" @click="cancelReply" type="button">Cancel</button>
                 </form>
             </div>
 
