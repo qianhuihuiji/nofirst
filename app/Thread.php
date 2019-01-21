@@ -3,17 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Notifications\ThreadWasUpdated;
-use App\Events\ThreadHasNewReply;
 use App\Events\ThreadReceivedNewReply;
-use Illuminate\Support\Facades\Redis;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity,Searchable;
 
     protected $guarded = [];
-    protected $with = ['creator','channel'];
+    protected $with = ['creator', 'channel'];
     protected $appends = ['isSubscribedTo'];
     protected $casts = [
         'locked' => 'boolean'
@@ -31,13 +29,13 @@ class Thread extends Model
             $thread->update([
                 'slug' => $thread->title
             ]);
-         });
+        });
     }
 
     public function getIsSubscribedToAttribute()
     {
         return $this->subscriptions()
-            ->where('user_id',auth()->id())
+            ->where('user_id', auth()->id())
             ->exists();
     }
 
@@ -53,9 +51,9 @@ class Thread extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-    
+
     public function channel()
     {
         return $this->belongsTo(Channel::class);
@@ -70,7 +68,7 @@ class Thread extends Model
         return $reply;
     }
 
-    public function scopeFilter($query,$filters)
+    public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
     }
@@ -107,7 +105,7 @@ class Thread extends Model
 
     public function getRouteKeyName()
     {
-        return 'slug';   
+        return 'slug';
     }
 
     public function setSlugAttribute($value)
@@ -123,6 +121,6 @@ class Thread extends Model
 
     public function markBestReply($reply)
     {
-        $this->update(['best_reply_id' => $reply->id]);   
+        $this->update(['best_reply_id' => $reply->id]);
     }
 }
