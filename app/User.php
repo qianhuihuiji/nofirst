@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $key = sprintf("users.%s.visits.%s",$this->id,$thread->id);
     }
+
+    public function isAdmin()
+    {
+        return in_array($this->name,['meiyiming']);   
+    }
 }

@@ -21,8 +21,9 @@ Route::get('/threads/{channel?}', 'threadsController@index')->name('threads');
 Route::get('/threads/{channel}/{thread}', 'threadsController@show')->name('threads.show');
 Route::post('/threads', 'threadsController@store')->name('threads.store')->middleware('must-be-confirmed');
 Route::get('/threads/{thread}/edit', 'threadsController@edit')->name('threads.edit');
-Route::patch('/threads/{thread}', 'threadsController@update')->name('threads.update');
 Route::delete('/threads/{channel}/{thread}', 'threadsController@destroy')->name('threads.destroy');
+
+Route::post('locked-threads/{thread}','LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
 
 Route::get('/threads/{channel}/{thread}/replies','RepliesController@index');
 Route::post('/threads/{channel}/{thread}/replies','RepliesController@store');
