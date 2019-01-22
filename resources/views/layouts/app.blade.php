@@ -36,10 +36,12 @@
     @yield('header')
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="{{ route_class() }}-page">
         @include('layouts.nav')
 
         @yield('content')
+
+        @include('layouts._footer')
 
         <flash message="{{ session('flash') }}"></flash>
     </div>
