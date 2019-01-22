@@ -68,7 +68,7 @@ class ReplyTest extends TestCase
     /** @test */
     public function a_reply_body_is_sanitized_automatically()
     {
-        $reply = create('App\Thread',['body' => "<script>alert('bad')</script><p>This is OK.</p>"]);
+        $reply = create('App\Reply',['body' => "<script>alert('bad')</script><p>This is OK.</p>"]);
 
         $this->assertEquals("<p>This is OK.</p>",$reply->body);
     }

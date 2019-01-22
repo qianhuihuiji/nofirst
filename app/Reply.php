@@ -19,7 +19,7 @@ class Reply extends Model
 
         static::created(function ($reply) {
             $reply->thread->increment('replies_count');
-            $reply->body = clean($reply->body,'thread_or_reply_body');
+            $reply->body = clean(static::wrapBody($reply->body),'thread_or_reply_body');
         });
 
         static::deleted(function ($reply){
@@ -63,9 +63,9 @@ class Reply extends Model
         return $this->thread->path() . "#reply-{$this->id}";
     }
 
-    public function setBodyAttribute($body)
+    public static function wrapBody($body)
     {
-        $this->attributes['body'] =  preg_replace('/@([\w\-]+)/','<a href="/profiles/$1">$0</a>',$body);
+        return  preg_replace('/@([\w\-]+)/','<a href="/profiles/$1">$0</a>',$body);
     }  
 
     public function isBest()
